@@ -10,6 +10,7 @@ export default class AddBook extends Component {
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleInputChange(event) {
@@ -19,10 +20,31 @@ export default class AddBook extends Component {
         });
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+
+        const {title, author} = this.state;
+        if (title !== '' && author !== '') {
+            Meteor.call('Books.insert', {title, author}, (error) => {
+                if (error) {
+                    alert(error.reason);
+                } else {
+                    // clear the form
+                    this.setState({
+                        title: '',
+                        author: '',
+                    });
+                }
+            });
+        } else {
+            alert('Make sure to provide a title and author before adding a book.');
+        }
+    }
+
     render() {
         const {title, author} = this.state;
         return (
-            <form id="add-book">
+            <form id="add-book" onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="title">
                         Title
