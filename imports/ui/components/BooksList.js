@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 export default class BooksList extends Component {
-
     static propTypes = {
         books: PropTypes.array,
     };
@@ -13,9 +12,7 @@ export default class BooksList extends Component {
 
     render() {
         return (
-            <ul className="list-group">
-
-            </ul>
+            <ul className="list-group" />
         );
     }
 }

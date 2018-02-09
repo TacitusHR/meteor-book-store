@@ -1,11 +1,11 @@
-import './books';
+import Books from './books';
 
 Meteor.methods({
     'Books.insert'(book) {
-        Books.insert( book, (error) => {
+        Books.insert(book, (error) => {
             if (error) {
                 console.log(error);
             }
         });
-    }
+    },
 });

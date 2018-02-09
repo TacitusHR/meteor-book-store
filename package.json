@@ -25,6 +25,18 @@
     "eslint-plugin-react": "^7.6.1"
   },
   "eslintConfig": {
-    "extends": "@meteorjs/eslint-config-meteor"
+    "extends": "@meteorjs/eslint-config-meteor",
+    "rules": {
+      "object-curly-spacing": [
+        "error",
+        "never"
+      ],
+      "indent": ["error", 4],
+      "react/jsx-indent": ["error", 4]
+    },
+    "env": {
+      "meteor": true
+    }
+
   }
 }

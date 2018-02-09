@@ -6,4 +6,5 @@ import {Mongo} from 'meteor/mongo';
  * exporting it (this is why we imported the entire file directly above instead of
  * destructuring the export like import { Books } from '../../api/books/books';).
  */
-Books = new Mongo.Collection( 'books' );
+const Books = new Mongo.Collection('books');
+export default Books;
