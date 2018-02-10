@@ -1,11 +1,12 @@
 describe('Add a book', () => {
-    it('should create a new book @watch', () => {
+    it('should create a new book @watch', function () {
         browser.url('http://localhost:3000')
             .setValue('[name="title"]', 'Seeking Wisdom')
             .setValue('[name="author"]', 'Peter Bevelin')
-            .submitForm('form');
+            .click('button[type=submit]')
+            .pause(1000);
 
-        const book = server.execute(() => {
+        const book = server.execute(function () {
             const Books = require('/imports/api/books/books.js').default;
             return Books.findOne({title: 'Seeking Wisdom', author: 'Peter Bevelin'});
         });
@@ -15,9 +16,9 @@ describe('Add a book', () => {
     });
 
     afterEach(() => {
-        server.execute(() => {
+        server.execute(function () {
             const Books = require('/imports/api/books/books.js').default;
-            Books.remove({title: 'Seeking Wisdom', author: 'Peter Bevelin'});
+            return Books.remove({title: 'Seeking Wisdom', author: 'Peter Bevelin'});
         });
     });
 });
