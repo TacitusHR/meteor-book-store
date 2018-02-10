@@ -8,3 +8,4 @@ Feature: Add a Book
   Scenario: Add a new book
     Given I have added a book
     Then I see "Seeking Wisdom" in the Books collection
+    And The form is cleared

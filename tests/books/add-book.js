@@ -4,7 +4,7 @@ describe('Add a book', () => {
             .setValue('[name="title"]', 'Seeking Wisdom')
             .setValue('[name="author"]', 'Peter Bevelin')
             .click('button[type=submit]')
-            .pause(1000);
+            .pause(200);
 
         const book = server.execute(function () {
             const Books = require('/imports/api/books/books.js').default;

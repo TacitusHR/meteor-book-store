@@ -3,25 +3,10 @@ import PropTypes from 'prop-types';
 import {withTracker} from 'meteor/react-meteor-data';
 import Books from '../../api/books/books';
 
-// export class BookItem extends Component {
-//     static propTypes = {
-//         book: PropTypes.object.isRequired,
-//     };
-//
-//     render() {
-//         const {title, author} = this.props.book;
-//         return (
-//             <li className="list-group-item">
-//                 <strong>{title}</strong> &mdash; by {author}
-//             </li>
-//         );
-//     }
-// }
-
 export function BookItem({book: {title, author}}) {
     return (
         <li className="list-group-item">
-            <strong>{title}</strong> &mdash; by {author}
+            <strong className={'book-title'}>{title}</strong> &mdash; by {author}
         </li>
     );
 }

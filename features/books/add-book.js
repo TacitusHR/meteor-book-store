@@ -1,8 +1,7 @@
-import Books from "../../imports/api/books/books";
-
 module.exports = function () {
     this.After(function () {
         server.execute(function () {
+            const Books = require('/imports/api/books/books').default;
             const book = Books.findOne({title: 'Seeking Wisdom', author: 'Peter Bevelin'});
             if (book) {
                 Books.remove(book._id);
@@ -14,14 +13,21 @@ module.exports = function () {
         browser.url('http://localhost:3000')
             .setValue('[name="title"]', 'Seeking Wisdom')
             .setValue('[name="author"]', 'Peter Bevelin')
-            .submitForm('form');
+            .click('button[type=submit]')
+            .pause(200);
     });
 
     this.Then(/^I see "([^"]*)" in the Books collection$/, function (bookTitle) {
         const getBook = server.execute(function (bookTitle) {
+            const Books = require('/imports/api/books/books').default;
             return Books.findOne({title: bookTitle});
         }, bookTitle);
 
         expect(getBook.title).toEqual(bookTitle);
+    });
+
+    this.Then(/^The form is cleared$/, function () {
+        expect(browser.getValue('[name="title"]')).toEqual('');
+        expect(browser.getValue('[name="author"]')).toEqual('');
     });
 };
