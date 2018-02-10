@@ -1,5 +1,3 @@
-import Books from "../../imports/api/books/books";
-
 describe('Add a book', () => {
     it('should create a new book @watch', () => {
         browser.url('http://localhost:3000')
@@ -8,6 +6,7 @@ describe('Add a book', () => {
             .submitForm('form');
 
         const book = server.execute(() => {
+            const Books = require('/imports/api/books/books.js').default;
             return Books.findOne({title: 'Seeking Wisdom', author: 'Peter Bevelin'});
         });
 
@@ -17,7 +16,8 @@ describe('Add a book', () => {
 
     afterEach(() => {
         server.execute(() => {
-            Books.remove(book);
+            const Books = require('/imports/api/books/books.js').default;
+            Books.remove({title: 'Seeking Wisdom', author: 'Peter Bevelin'});
         });
     });
 });
