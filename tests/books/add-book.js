@@ -1,3 +1,6 @@
+/* eslint-env mocha */
+/* global browser,server,expect */
+
 describe('Add a book', () => {
     it('should create a new book @watch', function () {
         browser.url('http://localhost:3000')

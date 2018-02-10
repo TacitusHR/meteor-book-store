@@ -1,3 +1,6 @@
+/* global server, browser, expect */
+/* eslint global-require: "off", no-shadow: "off" */
+
 module.exports = function () {
     const books = [{
         title: 'Freedom',
@@ -17,7 +20,7 @@ module.exports = function () {
     this.Given(/^There are some books in database$/, function () {
         const serverBooks = server.execute(function (books) {
             const Books = require('/imports/api/books/books').default;
-            return books.map((book) => Books.insert(book));
+            return books.map(book => Books.insert(book));
         }, books);
 
         console.log(serverBooks);

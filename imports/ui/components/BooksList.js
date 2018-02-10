@@ -6,7 +6,7 @@ import Books from '../../api/books/books';
 export function BookItem({book: {title, author}}) {
     return (
         <li className="list-group-item">
-            <strong className={'book-title'}>{title}</strong> &mdash; by {author}
+            <strong className="book-title">{title}</strong> &mdash; by {author}
         </li>
     );
 }
@@ -36,14 +36,12 @@ export class BooksList extends Component {
 
         return (
             <ul className="list-group">
-                {books.map((book, index) => <BookItem key={index} book={book} />)}
+                {books.map(book => <BookItem key={book._id} book={book} />)}
             </ul>
         );
     }
 }
 
-export default withTracker(() => {
-    return {
-        books: Books.find().fetch(),
-    };
-})(BooksList);
+export const BooksListContainer = withTracker(() => ({
+    books: Books.find().fetch(),
+}))(BooksList);

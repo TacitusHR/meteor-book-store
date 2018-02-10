@@ -1,3 +1,6 @@
+/* global server, browser, expect */
+/* eslint global-require: "off" */
+
 module.exports = function () {
     this.After(function () {
         server.execute(function () {
@@ -18,9 +21,9 @@ module.exports = function () {
     });
 
     this.Then(/^I see "([^"]*)" in the Books collection$/, function (bookTitle) {
-        const getBook = server.execute(function (bookTitle) {
+        const getBook = server.execute(function (title) {
             const Books = require('/imports/api/books/books').default;
-            return Books.findOne({title: bookTitle});
+            return Books.findOne({title});
         }, bookTitle);
 
         expect(getBook.title).toEqual(bookTitle);

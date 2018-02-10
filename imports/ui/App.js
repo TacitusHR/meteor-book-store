@@ -1,6 +1,6 @@
 import React from 'react';
 import AddBook from './components/AddBook';
-import BooksList from './components/BooksList';
+import {BooksListContainer} from './components/BooksList';
 
 export default function App() {
     return (
@@ -12,7 +12,7 @@ export default function App() {
                 </div>
                 <div className="col-xs-12 col-sm-7 col-sm-offset-1">
                     <h4 className="page-header">Books</h4>
-                    <BooksList />
+                    <BooksListContainer />
                 </div>
             </div>
         </div>);
