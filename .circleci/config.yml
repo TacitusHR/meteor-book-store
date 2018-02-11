@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+    working_directory: /home/meteor/app
+    docker:
+        - image: tacitus/meteor-circleci:latest
+    steps:
+      - checkout
+      - restore_cache:
+          name : Restore NPM Cache
+          key: npm-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          name: Restore Meteor Package Cache
+          key: packages-cache-{{ checksum ".meteor/versions" }}
+      - run:
+          name: Install npm dependencies
+          command: meteor npm install
+      - save_cache:
+          name: Save NPM Cache
+          key: npm-cache-{{ checksum "package.json" }}
+          paths:
+            - 'node_modules'
+      - run:
+          name: Run Test
+          command: TEST_BROWSER_DRIVER=phantomjs meteor npm test
+      - save_cache:
+          key: packages-cache-{{ checksum ".meteor/versions" }}
+          paths:
+            - '/home/meteor/.meteor/local/build'
+            - '/home/meteor/.meteor/local/bundler-cache'
+            - '/home/meteor/.meteor/local/isopacks'
+            - '/home/meteor/.meteor/local/plugin-cache'

@@ -4,6 +4,7 @@
   "scripts": {
     "start": "meteor run",
     "lint": "eslint .",
+    "test": "meteor test --driver-package meteortesting:mocha --once",
     "pretest": "meteor npm run lint",
     "startTest": "meteor test --full-app --driver-package tmeasday:acceptance-test-driver"
   },
@@ -28,6 +29,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-meteor": "^4.2.0",
     "eslint-plugin-react": "^7.6.1",
+    "phantomjs-prebuilt": "^2.1.16",
     "sinon": "^4.2.2",
     "sinon-chai": "^2.14.0"
   },

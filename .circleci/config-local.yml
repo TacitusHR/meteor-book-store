@@ -1,0 +1,43 @@
+version: 2
+jobs:
+  build:
+    working_directory: /home/meteor/app
+    docker:
+        - image: tacitus/meteor-circleci:latest
+    steps:
+      - run: mkdir -p /home/meteor/app/.meteor
+      - run: find /tmp/_circleci_local_build_repo/.meteor -maxdepth 1 -type f | xargs -I {} cp {} /home/meteor/app/.meteor
+      - run: cp -r /tmp/_circleci_local_build_repo/.circleci /home/meteor/app/
+      - run: cp -r /tmp/_circleci_local_build_repo/client /home/meteor/app/
+      - run: cp -r /tmp/_circleci_local_build_repo/features /home/meteor/app/
+      - run: cp -r /tmp/_circleci_local_build_repo/imports /home/meteor/app/
+      - run: cp -r /tmp/_circleci_local_build_repo/server /home/meteor/app/
+      - run: cp -r /tmp/_circleci_local_build_repo/tests /home/meteor/app/
+      - run: cp /tmp/_circleci_local_build_repo/.gitignore /home/meteor/app/
+      - run: cp /tmp/_circleci_local_build_repo/package.json /home/meteor/app/
+      - run: cp /tmp/_circleci_local_build_repo/package-lock.json /home/meteor/app/
+
+      - restore_cache:
+          name : Restore NPM Cache
+          key: npm-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          name: Restore Meteor Package Cache
+          key: packages-cache-{{ checksum ".meteor/versions" }}
+      - run:
+          name: Install npm dependencies
+          command: meteor npm install
+      - save_cache:
+          name: Save NPM Cache
+          key: npm-cache-{{ checksum "package.json" }}
+          paths:
+            - 'node_modules'
+      - run:
+          name: Run Test
+          command: TEST_BROWSER_DRIVER=phantomjs meteor npm test
+      - save_cache:
+          key: packages-cache-{{ checksum ".meteor/versions" }}
+          paths:
+            - './.meteor/local/build'
+            - './.meteor/local/bundler-cache'
+            - './.meteor/local/isopacks'
+            - './.meteor/local/plugin-cache'
