@@ -1,6 +1,22 @@
+import '../methods';
+import Books from '../books';
+import {expect} from 'chai';
+import sinon from 'sinon';
 
 describe('Books methods', () => {
-    it('creates a book', () => {
+    beforeEach(() => {
+        Books.remove({});
+    });
 
+    afterEach(() => {
+        Books.remove({});
+    });
+
+    it('creates a book', async () => {
+        const bookId = await Meteor.call('Books.insert', {title: 'My Book', author: 'Myself'});
+
+        const books = Books.find({}).fetch();
+        expect(books.length).to.be.equal(1);
+        expect(books[0]).to.be.deep.equal({_id: bookId, title: 'My Book', author: 'Myself'});
     });
 });
