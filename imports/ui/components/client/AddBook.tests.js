@@ -1,8 +1,11 @@
+/* eslint-env mocha */
+/* eslint no-unused-expressions: "off" */
+
 import React from 'react';
-import {shallow} from 'enzyme';
-import AddBook from "../AddBook";
 import {expect} from 'chai';
 import sinon from 'sinon';
+import {shallow} from 'enzyme';
+import AddBook from '../AddBook';
 
 describe('AddBook', () => {
     it('renders', () => {
@@ -24,7 +27,7 @@ describe('AddBook', () => {
             });
 
             form.simulate('submit', {
-                preventDefault: () => {}
+                preventDefault: () => {},
             });
 
             expect(call).to.have.been.calledOnce;

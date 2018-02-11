@@ -1,7 +1,8 @@
-import '../methods';
-import Books from '../books';
+/* eslint-env mocha */
+
 import {expect} from 'chai';
-import sinon from 'sinon';
+import Books from '../books';
+import '../methods';
 
 describe('Books methods', () => {
     beforeEach(() => {
