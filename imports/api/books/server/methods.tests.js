@@ -13,8 +13,8 @@ describe('Books methods', () => {
         Books.remove({});
     });
 
-    it('creates a book', async () => {
-        const bookId = await Meteor.call('Books.insert', {title: 'My Book', author: 'Myself'});
+    it('creates a book', () => {
+        const bookId = Meteor.call('Books.insert', {title: 'My Book', author: 'Myself'});
 
         const books = Books.find({}).fetch();
         expect(books.length).to.be.equal(1);
